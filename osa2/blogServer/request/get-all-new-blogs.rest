@@ -1,0 +1,8 @@
+POST http://127.0.0.1:3003/api/blogs
+Content-Type: application/json
+
+{
+  "title": "Why the protest is a good move",
+  "author": "Pratrotic Nigerian",
+  
+}
