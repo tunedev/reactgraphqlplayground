@@ -13,12 +13,22 @@ const PersonForm = ({ setError }) => {
     onError: (error) => {
       setError(error.graphQLErrors[0].message);
     },
+    update: (store, response) => {
+      const dataInStore = store.readQuery({ query: ALL_PERSONS })
+      store.writeQuery({
+        query: ALL_PERSONS,
+        data: {
+          ...dataInStore,
+          allPersons: [ ...dataInStore.allPersons, response.data.addPerson ]
+        }
+      })
+    }
   });
 
   const submit = (event) => {
     event.preventDefault();
 
-    createPerson({ variables: { name, phone, street, city } });
+    createPerson({ variables: { name, phone: phone.length > 0 ? phone : null, street, city } });
 
     setName('');
     setPhone('');
